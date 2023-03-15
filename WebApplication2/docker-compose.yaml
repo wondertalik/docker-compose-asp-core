@@ -1,0 +1,17 @@
+services:
+  webapp2:
+    container_name: webapp2
+    image: mcr.microsoft.com/dotnet/sdk:6.0
+    ports:
+      - "7178:7178"
+      - "5237:5237"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=dev
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/dev.pfx
+    volumes:
+      - ~/Works/wn/docker_certs/dev:/https:ro
+      - ./:/app/src
+    working_dir: /app/src
+    command: dotnet watch run --project WebApplication2
+  
